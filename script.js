@@ -16,7 +16,7 @@ class calculator {
     }
     
     appendNumber(number) {
-        if (number ==='.' && this.currentOperand.includes('.')) return
+        if (number === '.' && this.currentOperand.includes('.')) return
         this.currentOperand = this.currentOperand.toString() + number.toString()
     }
 
@@ -59,7 +59,7 @@ class calculator {
     getDisplayNumber(number){
         const stringNumber = number.toString()
         const integerDigits = parseFloat(stringNumber.split('.')[0])
-        const decimalDigits = stringNumber.split('.')[0]
+        const decimalDigits = stringNumber.split('.')[1]
         let integerDisplay
         if (isNaN(integerDigits)){
             integerDigits = ''
@@ -75,8 +75,8 @@ class calculator {
 
 
     updateDisplay() {
-        this.currentOperandTextElement.innerText = this.getDisplayNumber(this.currentOperand)
-        if (this.operation != null){
+        this.currentOperandTextElement.innerText = this.getDisplayNumber(this.currentOperand);
+        if (this.operation != null) {
             this.previousOperandTextElement.innerText = `${this.getDisplayNumber(this.previousOperand)} ${this.operation}`
         } else {
             this.previousOperandTextElement.innerText = ''
@@ -85,41 +85,42 @@ class calculator {
 }
 
 
-const numberButtons = document.querySelectorAll('[data-number')
-const operationButtons = document.querySelectorAll('[data-operation]')
-const equalsButton = document.querySelector('[data-equals]')
-const deleteButton = document.querySelector('[data-delete]')
-const allClearButton = document.querySelector('[data-all-clear]')
-const previousOperandTextElement = document.querySelector('[data-previous-operant]')
-const currentOperandTextElement = document.querySelector('[data-current-operant]')
+const numberButtons = document.querySelectorAll('[data-number]');
+const operationButtons = document.querySelectorAll('[data-operation]');
+const equalsButton = document.querySelector('[data-equals]');
+const deleteButton = document.querySelector('[data-delete]');
+const allClearButton = document.querySelector('[data-all-clear]');
+const previousOperandTextElement = document.querySelector('[data-previous-operand]');
+const currentOperandTextElement = document.querySelector('[data-current-operand]');
 
-const calculator = new Calculator(previousOperandTextElement, currentOperandTextElement)
+
+const Calculator = new calculator(previousOperandTextElement, currentOperandTextElement);
 
 numberButtons.forEach(button => {
     button.addEventListener('click', () =>{
-        calculator.appendNumber(button.innerText)
-        calculator.updateDisplay()
+        Calculator.appendNumber(button.innerText);
+        Calculator.updateDisplay();
     })
 })
 
 operationButtons.forEach(button => {
     button.addEventListener('click', () =>{
-        calculator.chooseOperation(button.innerText)
-        calculator.updateDisplay()
+        Calculator.chooseOperation(button.innerText);
+        Calculator.updateDisplay();
     })
 })
 
 equalsButton.addEventListener('click', button => {
-    calculator.compute()
-    calculator.updateDisplay()
+    Calculator.compute();  
+    Calculator.updateDisplay();
 })
 
 allClearButton.addEventListener('click', button => {
-    calculator.clear()
-    calculator.updateDisplay()
+    Calculator.clear();
+    Calculator.updateDisplay();
 })
 
 deleteButton.addEventListener('click', button => {
-    calculator.delete()
-    calculator.updateDisplay()
+    Calculator.delete();
+    Calculator.updateDisplay();
 })
